@@ -12,10 +12,11 @@ class fibRecursive extends Thread{
 	}
 	
 	public void run() {
-		long startTime = System.currentTimeMillis();
+		//modified to System.nanoTime
+		long startTime = System.nanoTime();
 		int result = this.sequence(this.n);
-		long endTime = System.currentTimeMillis();
-		System.out.println("Recursive Method: "+result+" in "+(endTime - startTime)+"ms");
+		long endTime = System.nanoTime();
+		System.out.println(this.n+", Recursive Method: "+result+" in "+(endTime - startTime)+"ns");
 	}
 }
 
@@ -39,16 +40,23 @@ class fibDynamic extends Thread{
 	}
 	
 	public void run() {
-		long startTime = System.currentTimeMillis();
+		//modified to System.nanoTime
+		long startTime = System.nanoTime();
 		int result = this.sequence(this.n);
-		long endTime = System.currentTimeMillis();
-		System.out.println("Dynamic Method: "+result+" in "+(endTime - startTime)+"ms");
+		long endTime = System.nanoTime();
+		System.out.println(this.n+", Dynamic Method: "+result+" in "+(endTime - startTime)+"ns");
 	}
 }
 
 public class hw7{
 	public static void main(String[] args) {
-		(new fibRecursive(40)).start();
-		(new fibDynamic(40)).start();
+		
+		int[] values = {3, 5, 7, 9, 11};
+		
+		for(int i = 0; i < values.length; i++) {
+			int v = values[i];
+			(new fibRecursive(v)).start();
+			(new fibDynamic(v)).start();
+		}
 	}
 }
